@@ -12,7 +12,7 @@ export const createPayment = (payment: Payment): AppThunk => async (
 ) => {
   await firestore()
     .collection('Payments')
-    .doc(`${payment.id}`)
+    .doc(`${payment.userUid}-${payment.id}`)
     .set(payment)
     .then(async () => {
       await dispatch({
@@ -59,6 +59,7 @@ export const loadListPayments = (userUid: string): AppThunk => async (
         const payment: Payment = {...data};
         lists.push(payment);
       });
+      lists.sort((a, b) => b.week - a.week);
       await dispatch({
         type: LOAD_LIST_PAYMENTS,
         payload: lists,

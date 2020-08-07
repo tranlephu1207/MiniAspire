@@ -256,7 +256,7 @@ const PaymentScreen: React.SFC<PaymentScreenProps> = ({
         amount: userDetail!.weeklyPayment,
         creationTime: moment().unix(),
         week,
-        newBalance: userDetail!.amount - userDetail!.amount,
+        newBalance: userDetail!.amount - userDetail!.weeklyPayment,
         oldBalance: userDetail!.amount,
         id: nextId,
       };

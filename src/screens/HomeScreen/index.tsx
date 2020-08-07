@@ -185,11 +185,15 @@ const HomeScreen: React.SFC<HomeScreenProps> = ({
   }, [userDetail]);
 
   const loanAmount = React.useMemo(() => {
-    if (userDetail) {
-      return userDetail.amount || 0;
+    if (userDetail && listPayments.length > 0) {
+      const paidAmount = listPayments.reduce(
+        (total, payment) => total + payment.amount,
+        0,
+      );
+      return userDetail!.amount - paidAmount;
     }
-    return 0;
-  }, [userDetail]);
+    return userDetail?.amount || 0;
+  }, [userDetail, listPayments]);
 
   const fetchListPayments = async (uid: string) => {
     try {
@@ -346,15 +350,17 @@ const HomeScreen: React.SFC<HomeScreenProps> = ({
         </View>
       </View>
 
-      <Global.Components.CircleButton
-        onPress={() =>
-          navigation.navigate('Payment', {
-            actionMode: 'create',
-            onRefresh: onRefresh,
-            nextId: listPayments.length + 1,
-          })
-        }
-      />
+      {loanAmount > 0 && (
+        <Global.Components.CircleButton
+          onPress={() =>
+            navigation.navigate('Payment', {
+              actionMode: 'create',
+              onRefresh: onRefresh,
+              nextId: listPayments.length + 1,
+            })
+          }
+        />
+      )}
     </View>
   );
 };
