@@ -195,7 +195,6 @@ const HomeScreen: React.SFC<HomeScreenProps> = ({
     try {
       await actions.loadListPayments(uid);
     } catch (error) {
-      console.log('error', error);
       Alert.alert('Error', error.message);
     }
   };

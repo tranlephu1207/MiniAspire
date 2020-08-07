@@ -35,14 +35,12 @@ export const loadPayment = (
     .where('id', '==', paymentId)
     .get()
     .then(async (querySnapshot) => {
-      console.log('querySnapshot', querySnapshot);
       await dispatch({
         type: LOAD_PAYMENT,
         payload: null,
       });
     })
     .catch((error) => {
-      console.log('query error', error);
       throw error;
     });
 };
@@ -55,11 +53,9 @@ export const loadListPayments = (userUid: string): AppThunk => async (
     .where('userUid', '==', userUid)
     .get()
     .then(async (querySnapshot) => {
-      console.log('querySnapshot', querySnapshot);
       const lists: Array<Payment> = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data() as Payment;
-        console.log('data', data);
         const payment: Payment = {...data};
         lists.push(payment);
       });
@@ -69,7 +65,6 @@ export const loadListPayments = (userUid: string): AppThunk => async (
       });
     })
     .catch((error) => {
-      console.log('query lists error', error);
       throw error;
     });
 };

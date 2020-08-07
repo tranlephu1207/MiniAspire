@@ -75,10 +75,6 @@ const MainSwitchNavigator: React.SFC<MainSwitchNavigatorProps> = ({
   );
 
   React.useEffect(() => {
-    console.log('isLoggedIn', isLoggedIn);
-  }, [isLoggedIn]);
-
-  React.useEffect(() => {
     const monitorUserState = async () => {
       auth().onAuthStateChanged(async (userState) => {
         if (userState) {

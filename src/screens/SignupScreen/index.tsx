@@ -9,7 +9,6 @@ import {
   Keyboard,
 } from 'react-native';
 import {Types, Components} from '../../index';
-import auth from '@react-native-firebase/auth';
 import * as Global from '../../index';
 import {connect, ConnectedProps} from 'react-redux';
 import {bindActionCreators} from 'redux';
